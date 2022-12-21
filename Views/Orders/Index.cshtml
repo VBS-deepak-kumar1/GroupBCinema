@@ -1,0 +1,85 @@
+﻿@model GroupBCinema.Models.order
+
+@{
+    ViewBag.Title = "Book Ticket";
+}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Book Tickets | GroupB Cinemas </title>
+    <link rel="stylesheet" property="stylesheet" href="/Content/Core.css">
+    <script>
+function totalCost() {
+    var x = document.getElementById("total_tickets").value;
+    document.getElementById("total").innerHTML = x * 10;
+    document.getElementById("total_price").value = x * 10;
+}
+
+
+</script>
+
+
+</head>
+<body class="region-ae no-navigation booking ordering" data-segment-title="Book Tickets">
+
+    <main role="main">
+        <h1 class="hide-embed">Book Tickets</h1>
+        <div class="order-overlay" style="bottom: -538px;">
+            <section>
+                <article>
+                    <div class="expanded" style="display: none;">
+                        <h2>My Basket</h2>
+                    </div>
+                    <a class="toggle"></a>
+                </article>
+            </section>
+        </div>
+        <section id="guest" class="summary member anonymous"></section>
+        <section id="tickets" class="current">
+            <h2>
+                Choose Tickets
+            </h2>
+            <div class="ticket-categories">
+                <div class="quantity-selection" data-limit="10" data-category="standard">
+
+                    <form class="csrf" action=@Url.Action("SuccessOrder", "orders")>
+                        <input type="hidden" name="show_id" id=" show_id" value="@ViewBag.show_id" />
+
+                        <div class="responsive-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Ticket Type</th>
+                                        <th colspan="3"> Qty / Price(Rupee) </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-quantity="0" data-value="36.75">
+                                        <td class="description ">
+                                            Standard Ticket- 10 Rs
+                                        </td>
+                                        <td class="description ">
+
+
+                                            <input type="text" id="total_tickets" name="total_tickets" onchange="totalCost()" ) />
+                                            <input type="hidden" id="total_price" name="total_price" onchange="totalCost()" />
+
+                                        </td>
+                                    </tr>
+                                    <tr class="total" data-value="0.00" data-currency="AED">
+                                        <td>Order Total</td>
+                                        <td colspan="3" class="align-center"><p id="total"></p> Rs</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button type="submit" class=" action secondary" data-initial-text="Confirm Tickets">Confirm Tickets</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

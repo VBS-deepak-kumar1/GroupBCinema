@@ -1,0 +1,110 @@
+﻿@using GroupBCinema.Models;
+@{
+    ViewBag.Title = "Home";
+}
+
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <title>Movies, Cinema Listings &amp; Latest Films | GroupB Cinemas </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="mask-icon" color="#0075bc" href="/assets/safari-pinned-tab.svg" />
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico" />
+
+    <link rel="stylesheet" property="stylesheet" href="/Content/Core.css" />
+    <style>
+        div.middle1 {
+            display: flex;
+            flex-direction: row;
+        }
+    </style>
+
+</head>
+<body>
+
+    @model  Tuple<IEnumerable<movy>, IEnumerable<theater>>
+
+    <main role="main">
+
+        <form class="form-inline my-3" action="/shows/index">
+
+            <div class="container h-100">
+                <div class="row h-100 justify-content-center align-items-center" style="background:#3e454b; padding-top:1.5em; padding-bottom:1em;">
+                    <div class="middle1">
+                        <div class="form-group mx-sm-3 mb-2">
+                            <select class="form-control" id="exampleSelect1" name="theater" required>
+                                <option value="" disabled selected>Select Theater Name</option>
+                                @foreach (var item in Model.Item2)
+                                {
+                                    <option value="@item.theater_id">@item.theater_name</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group mx-sm-3 mb-2" style="float:right;">
+                            <select class="form-control" id="exampleSelect2" name="movie" required>
+                                <option value="" disabled selected>Select Movie Name</option>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    <option value="@item.movie_id">@item.movie_name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mb-2" style="background:#d40f7d; border-color:#d40f7d">Find Times and Book</button>
+                </div>
+            </div>
+
+        </form>
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://assets.voxcinemas.com/content/PS-1--_1664376399.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://assets.voxcinemas.com/content/Avatar--_1663684109.jpeg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://assets.voxcinemas.com/content/VIKRAM-VEDHA-EN-_1664309679.jpeg" class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <section>
+            <div class="poster-wall">
+                @foreach (var item in Model.Item1)
+                {
+                    <article class="movie-summary" data-slug="shazam" data-title="Shazam!">
+                        <img class="poster lazy" src=@item.image_path alt="Shazam!" />
+                    </article>}
+            </div>
+
+
+
+            <hr class="dashed" />
+
+        </section>
+
+
+    </main>
+
+
+</body>
+</html>

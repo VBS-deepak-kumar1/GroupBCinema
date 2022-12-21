@@ -1,0 +1,58 @@
+﻿@model GroupBCinema.Models.show
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>show</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.movy.movie_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.movy.movie_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.theater.theater_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.theater.theater_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.timing)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.timing)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.price)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.show_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

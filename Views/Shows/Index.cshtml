@@ -1,0 +1,168 @@
+﻿
+@model  Tuple<IEnumerable<GroupBCinema.Models.movy>, IEnumerable<GroupBCinema.Models.theater>, IEnumerable<GroupBCinema.Models.show>>
+
+@{ ViewBag.Title = "Shows"; }
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <title>GroupBCinema</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="mask-icon" color="#0075bc" href="/assets/safari-pinned-tab.svg" />
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <link rel="stylesheet" property="stylesheet" href="/Content/Core.css" />
+
+</head>
+<body class="region-ae movie-detail" data-segment-title="@ViewBag.movieObject.movie_name | Now Showing | Book Tickets">
+
+
+    <main role="main">
+
+        <form class="form-inline my-3" action="/shows/index">
+
+            <div class="container h-100">
+                <div class="row h-100 justify-content-center align-items-center" style="background:#3e454b; padding-top:1.5em; padding-bottom:1em;">
+
+                    <div class="form-group mx-sm-3 mb-2">
+                        <select class="form-control" id="exampleSelect1">
+                            <option value="" disabled selected>Select Theater Name</option>
+                            @foreach (var item in Model.Item2)
+                            {
+                <option value="@item.theater_id">@item.theater_name</option>}
+                        </select>
+                    </div>
+
+                    <div class="form-group mx-sm-3 mb-2">
+                        <select class="form-control" id="exampleSelect2">
+                            <option value="" disabled selected>Select Movie Name</option>
+                            @foreach (var item in Model.Item1)
+                            {
+                <option value="@item.movie_id">@item.movie_name</option>}
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mb-2" style="background:#d40f7d; border-color:#d40f7d">Find Times and Book</button>
+                    
+                    
+                  
+                </div>
+            </div>
+
+        </form>
+
+        <div class="container">
+
+            <main role="main">
+
+
+
+                <section>
+                    <h1>@ViewBag.movieObject.movie_name</h1>
+                    <img class="poster lazy" src="@ViewBag.movieObject.image_path" data-src="@ViewBag.movieObject.image_path" data-broken="/assets/images/broken-poster-480x686.jpg" alt="@ViewBag.movieObject.movie_name" />
+                    <div class="trailer">
+                        <div class="player">
+                            <iframe width="619" height="398" src="@ViewBag.movieObject.video_path" frameborder="0" allowfullscreen="true" allowtransparency="true"></iframe>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <p class="align-center"><a class="action secondary" href="#showtimes">View Showtimes</a></p>
+                    <p class="align-center"><a class="action secondary" href="/orders/create">Book Ticket</a></p>
+
+                 
+                    <hr class="dashed" />
+                    <aside>
+                        <p><strong>Genre: </strong>@ViewBag.movieObject.genre</p>
+                        <p><strong>Running Time: </strong>@ViewBag.movieObject.runtime</p>
+                        <p><strong>Release Date: </strong>@ViewBag.movieObject.release_date</p>
+                        <p><strong>Director: </strong>@ViewBag.movieObject.director</p>
+                        <p><strong>Language: </strong>@ViewBag.movieObject.language</p>
+                        <p><strong>Subtitle(s): </strong>@ViewBag.movieObject.subtitle</p>
+                    </aside>
+                    <article>
+                        <p>@ViewBag.movieObject.description</p>
+                    </article>
+                </section>
+                <section id="showtimes">
+
+                    <hr class="dashed" />
+
+                    <h2 class="highlight">@ViewBag.movieObject.movie_name - Showtimes</h2>
+
+                    <nav class="date-filter">
+                        <div class="scroll">
+                            <div class="viewport">
+                                <ol>
+                                    @{ string[] dates = new string[Model.Item3.Count()];
+                                        int i = 0;
+
+                                        foreach (var item in Model.Item3)
+                                        {
+                                            dates[i] = @item.date.ToString("dddd, dd MMMM yyyy");
+                                            i++;
+
+                                        }
+
+                                        foreach (string date in dates.Distinct())
+                                        {
+                            <li>
+                                <a href="#" onclick="return false; ">@date</a>
+                            </li> } }
+                                </ol>
+                            </div>
+                        </div>
+                    </nav>
+                    <div class="dates">
+
+                        <h3 class="highlight">@ViewBag.theaterObject.theater_name</h3>
+
+                        <ol class="showtimes">
+                            <li>
+                                <strong>Standard</strong>
+
+                                @{ foreach (string date in dates.Distinct())
+                                    {
+                        <hr class="scroll" />
+                                        <ol>
+                                            <li data-id="0036-7536">
+                                                <h4>@date </h4>
+                                            </li>
+                                        </ol>
+
+
+                                                        <ol>
+                                                            <li data-id="0036-7536">
+                                                                @foreach (var item in Model.Item3)
+                                                                {
+                                                                    if (date == item.date.ToString("dddd, dd MMMM yyyy"))
+                                                                    {
+                                                            <a class="action showtime" href="/orders/index?show_id=@item.show_id">@item.timing</a>}
+                                                    }
+                                                               
+
+                                                            </li>
+                                                        </ol> } }
+
+                            </li>
+                        </ol>
+                    </div>
+                </section>
+
+                <section>
+                    <hr class="dashed" />
+
+
+                </section>
+
+
+
+            </main>
+
+
+        </div>
+
+
+</body>
+</html>
